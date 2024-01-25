@@ -1,0 +1,8 @@
+.filter-component {
+  float: right;
+  text-align: right;
+}
+
+.filter-component input {
+  margin-left: 0.5em;
+}
