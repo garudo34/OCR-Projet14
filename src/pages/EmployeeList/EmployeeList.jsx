@@ -26,11 +26,17 @@ export const EmployeeList = () => {
       name: 'Date Of Birth',
       selector: (row) => row.dateOfBirth,
       sortable: true,
+      sortFunction: (a, b) => {
+        return new Date(b.dateOfBirth) - new Date(a.dateOfBirth)
+      },
     },
     {
       name: 'Start Date',
       selector: (row) => row.startDate,
       sortable: true,
+      sortFunction: (a, b) => {
+        return new Date(b.startDate) - new Date(a.startDate)
+      },
     },
     {
       name: 'Street',
