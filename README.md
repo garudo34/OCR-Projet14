@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+![HRnet](/public/logo.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# HRnet
 
-## Available Scripts
+## Description :
 
-In the project directory, you can run:
+Projet réalisé dans le cadre du programme de formation Développeur Front-end JavaScript React chez [OpenClassrooms](https://openclassrooms.com/fr/paths/877-developpeur-dapplication-javascript-react)
 
-### `npm start`
+> Faites passer une librairie jQuery vers React.
+>
+> #### Compétences évaluées :
+>
+> - Analyser la performance d'une application web
+> - Déployer une application front-end
+> - Programmer en JavaScript
+> - Utilisation d'un gestionnaire d'état
+> - Refondre une application pour réduire la dette technique
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Contexte du projet :
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Vous travaillez pour le département technologique d'une grande société financière, WealthHealth.
 
-### `npm test`
+Cette société utilise une application web interne, appelée HRnet, qui gère les dossiers des employés. L'application est ancienne et utilise jQuery côté front end, ce qui entraîne des bugs considérables et une augmentation des plaintes en interne. Votre équipe de développement s'efforce depuis un certain temps déjà de mettre à niveau l'application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Objectifs :
 
-### `npm run build`
+- Convertir l'ensemble du projet en React.
+  - Faire une nouvelle version des pages "Create Employee" et "Employee List".
+  - Ajouter un système de gestion d'état.
+  - S'assurer que tout est cohérent au niveau du style. Pour cela, il n'est pas obligé de refaire le design de l'application, mais s'il faut changer le style pour quelque chose de plus moderne, cela est bienvenu.
+- Convertir l'un des quatre plugins jQuery actuels en librairie React. Remplacer les trois plugins jQuery restants par des composants React dans l'application.
+  - Ne convertir que le code qui traite de la fonctionnalité réelle de l'interface utilisateur du plugin.
+  - Publier le composant React sur npm sous forme de package ou sur Github.
+- Effectuer des tests de performance Lighthouse afin de mesurer des données quantifiables (ex. : temps de chargement des pages, appels réseau) en comparant l'ancienne et la nouvelle application.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Cloner le repository:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `git clone https://github.com/garudo34/hrnet.git`
 
-### `npm run eject`
+2. Installer toutes les dépendances pour le front-end:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `npm install` ou `yarn`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Lancer le front-end:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- `npm start` ou `yarn start`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Le front-end sera lancé à l'URL:
+`http://localhost:3000/`.
 
-## Learn More
+## Ressources :
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [React 18](https://fr.reactjs.org/)
+- [Create React App](https://create-react-app.dev/)
+- [React Router](https://reactrouter.com/)
+- [Prop-types](https://www.npmjs.com/package/prop-types)
+- [Redux](https://redux.js.org/)
+- [JSDoc](https://jsdoc.app/)
+- [Better-Docs](https://www.npmjs.com/package/better-docs) - si problème de dépendances `npm i --legacy-peer-deps better-docs`
+- [Redux](https://redux.js.org/)
+- [React Data Table Component](https://www.npmjs.com/package/react-data-table-component)
+- [React Date Picker](https://www.npmjs.com/package/react-datepicker)
+- [React-Select](https://www.npmjs.com/package/react-select)
+- [HRnet-modal-library](https://www.npmjs.com/package/hrnet-modal-library) - **Conversion personnel du plugin JQuery-modal en React**
