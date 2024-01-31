@@ -1,4 +1,5 @@
 import DataTable from 'react-data-table-component'
+import propTypes from 'prop-types'
 import './TableComponent.css'
 
 const customStyles = {
@@ -24,7 +25,16 @@ const customStyles = {
   },
 }
 
-export const TableComponent = ({ data, columns }) => {
+/**
+ * TableComponent
+ *
+ * @category Components
+ * @component
+ * @param {Array} data data to display
+ * @param {Array} columns columns object
+ * @returns {React.Component} - TableComponent
+ */
+const TableComponent = ({ data, columns }) => {
   return (
     <DataTable
       columns={columns}
@@ -37,3 +47,12 @@ export const TableComponent = ({ data, columns }) => {
     />
   )
 }
+
+TableComponent.propTypes = {
+  /** Array that contains data to display */
+  data: propTypes.array,
+  /** Array of columns configuration */
+  columns: propTypes.array,
+}
+
+export default TableComponent

@@ -3,11 +3,18 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import './EmployeeList.css'
-import { TableComponent } from '../../components/TableComponent/TableComponent'
-import { FilterComponent } from '../../components/FilterComponent/FilterComponent'
+import TableComponent from '../../components/TableComponent/TableComponent'
+import FilterComponent from '../../components/FilterComponent/FilterComponent'
 
+/**
+ * EmployeeList Component
+ *
+ * @category Components
+ * @component
+ * @returns {React.Component} - EmployeeList Component
+ */
 export const EmployeeList = () => {
-  // Employees data loaded from store
+  // Employees data loaded from store with default values
   const data = useSelector((state) => state?.employees)
 
   // Table columns structure
@@ -71,6 +78,7 @@ export const EmployeeList = () => {
     setFilterText(e.target.value)
   }
 
+  // Function that return data with filtered text
   const filteredData = data.filter(
     (item) =>
       (item.firstname &&

@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { employeesSlice } from './reducers/employeesSlice'
 
+// initial state with default employees
 let state = {
   employees: [
     {

@@ -1,6 +1,8 @@
 .form-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-form-content {
@@ -16,10 +18,10 @@
 }
 
 .left-content {
-  width: 40%;
+  width: 50%;
 }
 .right-content {
-  width: 60%;
+  width: 550px;
 }
 
 .left-content,
@@ -47,7 +49,7 @@
 
 .input-wrapper input {
   padding: 5px;
-  font-size: 18px;
+  font-size: 15px;
   border: 1px solid rgba(206, 214, 224, 1);
   border-radius: 0.2em;
 }

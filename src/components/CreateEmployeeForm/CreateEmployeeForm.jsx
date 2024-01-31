@@ -11,7 +11,17 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Modal } from 'hrnet-modal-library'
 
+/**
+ * Form component with form validation on submit
+ *
+ * @category Components
+ * @component
+ 
+ * @returns {React.Component} - The form component
+ */
+
 export const CreateEmployeeForm = () => {
+  // State to track the input values changes
   const [inputFields, setInputFields] = useState({
     firstname: '',
     lastname: '',
@@ -23,15 +33,22 @@ export const CreateEmployeeForm = () => {
     zipCode: '',
     department: '',
   })
+
   const [errors, setErrors] = useState({})
+  // state to track if the form has been submitted
   const [submitting, setSubmitting] = useState(false)
+  // state to handle the modal behaviour
   const [isOpen, setIsOpen] = useState(false)
 
   const dispatch = useDispatch()
 
+  /**
+   * On form submit with no errors on validation
+   */
   const lauchSubmit = async () => {
     try {
       dispatch(
+        // action addEmployee with form values as payload
         addEmployee({
           firstname: inputFields.firstname,
           lastname: inputFields.lastname,
@@ -48,6 +65,7 @@ export const CreateEmployeeForm = () => {
           department: inputFields.department.label,
         })
       )
+      // empty form values
       setInputFields({
         ...inputFields,
         firstname: '',
@@ -60,6 +78,7 @@ export const CreateEmployeeForm = () => {
         zipCode: '',
         department: '',
       })
+      // trigger the modal display
       setIsOpen(true)
     } catch (err) {
       if (!err.status) {
@@ -74,16 +93,19 @@ export const CreateEmployeeForm = () => {
     }
   }
 
+  // inputs change event
   const handleChange = (e) => {
     setInputFields({ ...inputFields, [e.target.name]: e.target.value })
   }
 
+  // form submit event
   const handleSubmit = (e) => {
     e.preventDefault()
     setErrors(validateValues(inputFields))
     setSubmitting(true)
   }
 
+  // form validation check
   const validateValues = (inputValues) => {
     let errors = {}
 
@@ -102,6 +124,7 @@ export const CreateEmployeeForm = () => {
     return errors
   }
 
+  // launch the form submission only when there is no error
   useEffect(() => {
     if (Object.keys(errors).length === 0 && submitting) {
       lauchSubmit()
