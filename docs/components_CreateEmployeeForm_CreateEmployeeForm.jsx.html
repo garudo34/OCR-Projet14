@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/CreateEmployeeForm/CreateEmployeeForm.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/CreateEmployeeForm/CreateEmployeeForm.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { addEmployee } from '../../app/reducers/employeesSlice'
+import { states } from '../../data/states'
+import { departments } from '../../data/departments'
+import Select from 'react-select'
+
+import './CreateEmployeeForm.css'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { Modal } from 'hrnet-modal-library'
+
+/**
+ * Form component with form validation on submit
+ *
+ * @category Components
+ * @component
+ 
+ * @returns {React.Component} - The form component
+ */
+
+export const CreateEmployeeForm = () => {
+  // State to track the input values changes
+  const [inputFields, setInputFields] = useState({
+    firstname: '',
+    lastname: '',
+    dateOfBirth: '',
+    startDate: '',
+    street: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    department: '',
+  })
+
+  const [errors, setErrors] = useState({})
+  // state to track if the form has been submitted
+  const [submitting, setSubmitting] = useState(false)
+  // state to handle the modal behaviour
+  const [isOpen, setIsOpen] = useState(false)
+
+  const dispatch = useDispatch()
+
+  /**
+   * On form submit with no errors on validation
+   */
+  const lauchSubmit = async () => {
+    try {
+      dispatch(
+        // action addEmployee with form values as payload
+        addEmployee({
+          firstname: inputFields.firstname,
+          lastname: inputFields.lastname,
+          dateOfBirth: new Date(inputFields.dateOfBirth).toLocaleDateString(
+            'en-us'
+          ),
+          startDate: new Date(inputFields.startDate).toLocaleDateString(
+            'en-us'
+          ),
+          street: inputFields.street,
+          city: inputFields.city,
+          state: inputFields.state.value,
+          zipCode: inputFields.zipCode,
+          department: inputFields.department.label,
+        })
+      )
+      // empty form values
+      setInputFields({
+        ...inputFields,
+        firstname: '',
+        lastname: '',
+        dateOfBirth: '',
+        startDate: '',
+        street: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        department: '',
+      })
+      // trigger the modal display
+      setIsOpen(true)
+    } catch (err) {
+      if (!err.status) {
+        console.log('No server response', err)
+      } else if (err.status === 400) {
+        console.log('Missing email or password')
+      } else if (err.status === 401) {
+        console.log('Unauthorized')
+      } else {
+        console.log(err.data?.message)
+      }
+    }
+  }
+
+  // inputs change event
+  const handleChange = (e) => {
+    setInputFields({ ...inputFields, [e.target.name]: e.target.value })
+  }
+
+  // form submit event
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setErrors(validateValues(inputFields))
+    setSubmitting(true)
+  }
+
+  // form validation check
+  const validateValues = (inputValues) => {
+    let errors = {}
+
+    if (!inputValues.firstname) {
+      errors.firstname = 'Enter a firstname'
+    }
+    if (!inputValues.lastname) {
+      errors.lastname = 'Enter a lastname'
+    }
+    if (!inputValues.dateOfBirth) {
+      errors.dateOfBirth = 'Enter a date of birth'
+    }
+    if (!inputValues.startDate) {
+      errors.startDate = 'Enter a start date'
+    }
+    return errors
+  }
+
+  // launch the form submission only when there is no error
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 &amp;&amp; submitting) {
+      lauchSubmit()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errors])
+
+  return (
+    &lt;form
+      action='#'
+      id='create-employee'
+      className='form-container'
+      onSubmit={handleSubmit}
+    >
+      &lt;div className='main-form-content'>
+        &lt;div className='left-content'>
+          &lt;div className='input-wrapper'>
+            &lt;label htmlFor='firstname'>First Name&lt;/label>
+            &lt;input
+              type='text'
+              name='firstname'
+              id='firstname'
+              value={inputFields.firstname}
+              onChange={handleChange}
+            />
+            {errors.firstname &amp;&amp; (
+              &lt;small className='error'>{errors.firstname}&lt;/small>
+            )}
+          &lt;/div>
+          &lt;div className='input-wrapper'>
+            &lt;label htmlFor='lastname'>Last Name&lt;/label>
+            &lt;input
+              type='text'
+              name='lastname'
+              id='lastname'
+              value={inputFields.lastname}
+              onChange={handleChange}
+            />
+            {errors.lastname &amp;&amp; (
+              &lt;small className='error'>{errors.lastname}&lt;/small>
+            )}
+          &lt;/div>
+
+          &lt;div className='input-wrapper'>
+            &lt;label htmlFor='dateOfBirth'>Date of Birth&lt;/label>
+            &lt;DatePicker
+              name='dateOfBirth'
+              id='dateOfBirth'
+              selected={inputFields.dateOfBirth}
+              onChange={(date) =>
+                setInputFields({ ...inputFields, dateOfBirth: date })
+              }
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode='select'
+            />
+            {errors.dateOfBirth &amp;&amp; (
+              &lt;small className='error'>{errors.dateOfBirth}&lt;/small>
+            )}
+          &lt;/div>
+          &lt;div className='input-wrapper'>
+            &lt;label htmlFor='startDate'>Start Date&lt;/label>
+            &lt;DatePicker
+              name='startDate'
+              id='startDate'
+              selected={inputFields.startDate}
+              onChange={(date) =>
+                setInputFields({ ...inputFields, startDate: date })
+              }
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode='select'
+            />
+            {errors.startDate &amp;&amp; (
+              &lt;small className='error'>{errors.startDate}&lt;/small>
+            )}
+          &lt;/div>
+          &lt;div className='input-wrapper'>
+            &lt;label htmlFor='department'>Department&lt;/label>
+            &lt;Select
+              name='department'
+              inputId='department'
+              value={inputFields.department}
+              onChange={(department) =>
+                setInputFields({ ...inputFields, department: department })
+              }
+              options={departments}
+            />
+          &lt;/div>
+        &lt;/div>
+        &lt;div className='right-content'>
+          &lt;fieldset className='address'>
+            &lt;legend>Address&lt;/legend>
+            &lt;div className='input-wrapper'>
+              &lt;label htmlFor='street'>Street&lt;/label>
+              &lt;input
+                type='text'
+                name='street'
+                id='street'
+                value={inputFields.street}
+                onChange={handleChange}
+              />
+            &lt;/div>
+            &lt;div className='input-wrapper'>
+              &lt;label htmlFor='city'>City&lt;/label>
+              &lt;input
+                type='text'
+                name='city'
+                id='city'
+                value={inputFields.city}
+                onChange={handleChange}
+              />
+            &lt;/div>
+            &lt;div className='input-wrapper'>
+              &lt;label htmlFor='state'>State&lt;/label>
+              &lt;Select
+                name='state'
+                inputId='state'
+                value={inputFields.state}
+                onChange={(state) =>
+                  setInputFields({ ...inputFields, state: state })
+                }
+                options={states}
+              />
+            &lt;/div>
+            &lt;div className='input-wrapper'>
+              &lt;label htmlFor='zipCode'>Zip Code&lt;/label>
+              &lt;input
+                type='number'
+                name='zipCode'
+                id='zipCode'
+                value={inputFields.zipCode}
+                onChange={handleChange}
+              />
+            &lt;/div>
+          &lt;/fieldset>
+        &lt;/div>
+      &lt;/div>
+
+      &lt;button type='submit' className='sign-in-button'>
+        Save
+      &lt;/button>
+
+      &lt;Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        Employee Created!
+      &lt;/Modal>
+    &lt;/form>
+  )
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CreateEmployeeForm.html">CreateEmployeeForm</a></li><li><a href="EmployeeList.html">EmployeeList</a></li><li><a href="FilterComponent.html">FilterComponent</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="TableComponent.html">TableComponent</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Jan 31 2024 15:10:24 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
